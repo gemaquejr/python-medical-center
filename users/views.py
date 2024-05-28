@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def register(request):
-    return HttpResponse("Olá mundo!")
+    return render(request, "register.html")
