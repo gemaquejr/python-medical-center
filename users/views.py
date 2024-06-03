@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.messages import constants
+from django.contrib import messages
 
 
 # Create your views here.
@@ -14,18 +16,18 @@ def register(request):
         confirmar_senha = request.POST.get('confirmar_senha')
 
         if senha != confirmar_senha:
-            print('Senhas não conferem')
+            messages.add_message(request, constants.ERROR, 'As Senhas não conferem')
             return redirect('register')
 
         if len(senha) < 6:
-            print('Senha muito curta')
+            messages.add_message(request, constants.ERROR, 'A Senha deve ter pelo menos 6 caracteres')
             return redirect('register')
 
         users = User.objects.filter(username=username)
         print(users.exists())
 
         if users.exists():
-            print('Usuário já existe')
+            messages.add_message(request, constants.ERROR, 'Usuário já existente')
             return redirect('register')
 
         user = User.objects.create_user(

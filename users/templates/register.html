@@ -20,6 +20,12 @@
         <hr />
         <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
           <h2 class="fonte-destaque1">Cadastre-se</h2>
+          {% if messages %}
+            {% for message in messages %}
+              <section class="alert {{message.tags}}">
+                {{message}}
+              </section>
+          {% endif %}
           <br />
           <label for="">Username</label>
           <input
