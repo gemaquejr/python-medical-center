@@ -37,3 +37,8 @@ def register(request):
         )
 
         return HttpResponse(f'Usuário cadastrado com sucesso.')
+
+
+def login_view(request):
+    if request.method == "GET":
+        return render(request, 'login.html')
