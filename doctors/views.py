@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Especialidades, DadosMedico
+from django.contrib.messages import constants
+from django.contrib import messages
 
 
 # Create your views here.
@@ -38,3 +40,6 @@ def register_doctor(request):
         )
 
         dados_medico.save()
+
+        messages.add_message(request, constants.SUCCESS, 'Médico cadastrado com sucesso!')
+        return redirect('/doctors/consultation_time')
