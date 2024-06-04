@@ -59,7 +59,8 @@ def available_dates(request):
 
     if request.method == 'GET':
         dados_medico = DadosMedico.objects.get(user=request.user)
-        return render(request, 'available_dates.html', {'dados_medico': dados_medico})
+        datas_abertas = SetDate.objects.filter(user=request.user)
+        return render(request, 'available_dates.html', {'dados_medico': dados_medico, 'datas_abertas': datas_abertas})
     elif request.method == 'POST':
         data = request.POST.get('data')
         data_formatada = datetime.strptime(data, '%Y-%m-%dT%H:%M')
