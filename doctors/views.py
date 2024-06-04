@@ -33,7 +33,8 @@ def register_doctor(request):
             foto=foto,
             especialidade_id=especialidade,
             descricao=descricao,
-            valor_consulta=valor_consulta
+            valor_consulta=valor_consulta,
+            user=request.user
         )
 
         dados_medico.save()
