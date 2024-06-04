@@ -57,4 +57,5 @@ def available_dates(request):
         return redirect('/users/logout')
 
     if request.method == 'GET':
-        return render(request, 'available_dates.html')
+        dados_medico = DadosMedico.objects.get(user=request.user)
+        return render(request, 'available_dates.html', {'dados_medico': dados_medico})
