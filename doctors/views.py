@@ -48,3 +48,13 @@ def register_doctor(request):
 
         messages.add_message(request, constants.SUCCESS, 'Médico cadastrado com sucesso!')
         return redirect('/doctors/consultation_time')
+
+
+def available_dates(request):
+
+    if not is_doctor(request.user):
+        messages.add_message(request, constants.WARNING, 'Você não é um médico cadastrado!')
+        return redirect('/users/logout')
+
+    if request.method == 'GET':
+        return render(request, 'available_dates.html')
