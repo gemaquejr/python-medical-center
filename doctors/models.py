@@ -9,6 +9,7 @@ class Especialidades(models.Model):
     def __str__(self):
         return self.especialidade
 
+
 class DadosMedico(models.Model):
     crm = models.CharField(max_length=15)
     nome = models.CharField(max_length=100)
