@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Especialidades, DadosMedico, is_doctor
+from .models import Especialidades, DadosMedico, is_doctor, SetDate
 from django.contrib.messages import constants
 from django.contrib import messages
+from datetime import datetime
 
 
 # Create your views here.
@@ -59,3 +60,20 @@ def available_dates(request):
     if request.method == 'GET':
         dados_medico = DadosMedico.objects.get(user=request.user)
         return render(request, 'available_dates.html', {'dados_medico': dados_medico})
+    elif request.method == 'POST':
+        data = request.POST.get('data')
+        data_formatada = datetime.strptime(data, '%Y-%m-%dT%H:%M')
+
+        if data_formatada <= datetime.now():
+            messages.add_message(request, constants.WARNING, 'A data não pode ser anterior a data atual!')
+            return redirect('/doctors/available_dates')
+
+        abrir_horario = SetDate(
+            data=data_formatada,
+            user=request.user,
+        )
+
+        abrir_horario.save()
+
+        messages.add_message(request, constants.SUCCESS, 'Horário cadastrado com sucesso!')
+        return redirect('/doctors/available_dates')

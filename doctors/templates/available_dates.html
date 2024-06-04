@@ -27,7 +27,7 @@
         Abrir horários para consultas
       </p>
       <hr />
-      <form action="#" method="POST">
+      <form action="{% url 'available_dates' %}" method="POST"> {% csrf_token %}
         <label for="">Escolher data:</label>
         <input
           type="datetime-local"
