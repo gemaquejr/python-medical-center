@@ -40,28 +40,30 @@
       </form>
       <hr />
       <div class="list-medicos">
+
+        {% for medico in medicos %}
         <div class="card-medicos shadow-main-color">
           <div class="row">
             <div class="col-md-3">
-              <img src="#" class="foto-perfil-card" alt="" />
+              <img src="{{medico.foto.url}}" class="foto-perfil-card" alt="" />
             </div>
             <div class="col-md">
               <p style="font-size: 20px" class="p-bold">
-                Dr(a). Nome aqui
+                Dr(a). {{medico.nome}}
                 <i class="bi bi-patch-check-fill icon-main"></i>
               </p>
-              <p>Descrição aqui</p>
+              <p>{{medico.descricao}}</p>
             </div>
           </div>
-          <p><i class="bi bi-map icon-main"></i>&nbsp&nbspRua tal aqui, 000.</p>
+          <p><i class="bi bi-map icon-main"></i>&nbsp&nbsp{{medico.endereco}}.</p>
           <p>
             <i class="bi bi-calendar2-week icon-main"></i>&nbsp&nbspProxima
             data: 00/00/0000
             <a href="#" class="btn btn-success btn-dark-color">Agendar</a>
           </p>
         </div>
-
         <br />
+      {% endfor %}
       </div>
     </div>
     <div class="col-md-4">
