@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 # Create your models here.
@@ -31,6 +32,11 @@ class DadosMedico(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def proxima_consulta(self):
+        proxima_consulta = SetDate.objects.filter(user=self.user).filter(data__gt=datetime.now()).filter(agendado=False).order_by('data').first()
+        return proxima_consulta
 
 
 class SetDate(models.Model):
