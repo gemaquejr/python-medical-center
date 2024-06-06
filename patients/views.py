@@ -24,4 +24,4 @@ def choose_date(request, id_dados_medicos):
     if request.method == "GET":
         medico = DadosMedico.objects.get(id=id_dados_medicos)
         datas_abertas = SetDate.objects.filter(user=medico.user).filter(data__gte=datetime.now()).filter(agendado=False)
-        return render(request, 'choose_date.html')
+        return render(request, 'choose_date.html', {'medico': medico, 'datas_abertas': datas_abertas})
