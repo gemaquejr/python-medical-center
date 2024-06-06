@@ -17,11 +17,11 @@
     <div class="col-md-8">
       <div class="row">
         <div class="col-md-3">
-          <img src="" class="foto-perfil-card" alt="" />
+          <img src="{{medico.foto.url}}" class="foto-perfil-card" alt="" />
         </div>
         <div class="col-md">
-          <p style="font-size: 20px" class="p-bold">Dr(a).</p>
-          <p>desc</p>
+          <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}}</p>
+          <p>{{medico.descricao}}</p>
         </div>
       </div>
       <br />
@@ -33,21 +33,24 @@
       {% endfor %} {% endif %}
       <hr />
       <div class="row">
-        <div class="col-md-3">
-          <a class="link" href="">
-            <div class="selecionar-dia">
-              <div class="header-dias">
-                <span class="mes"> mes </span>
-                <span class="dia-semana"> semana </span>
-              </div>
-              <div class="conteudo-data">data</div>
+
+          {% for data_aberta in datas_abertas %}
+            <div class="col-md-3">
+              <a class="link" href="">
+                <div class="selecionar-dia">
+                  <div class="header-dias">
+                    <span class="mes"> {{data_aberta.data.month}} </span>
+                    <span class="dia-semana"> {{data_aberta.data.weekday}} </span>
+                  </div>
+                  <div class="conteudo-data">{{data_aberta.data}}</div>
+                </div>
+              </a>
+              <br />
             </div>
-          </a>
-          <br />
+          {% endfor %}
         </div>
       </div>
+      <div class="col-md-4"></div>
     </div>
-    <div class="col-md-4"></div>
   </div>
-</div>
 {% endblock 'body' %}
