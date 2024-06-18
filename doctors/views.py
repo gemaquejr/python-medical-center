@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Especialidades, DadosMedico, is_doctor, SetDate
 from django.contrib.messages import constants
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime, timedelta
+from patients.models import Consultation
 
 
 # Create your views here.
@@ -85,5 +86,8 @@ def medical_consultations(request):
         messages.add_message(request, constants.WARNING, 'Você não é um médico cadastrado!')
         return redirect('/users/logout')
 
-    if request.method == 'GET':
-        return render(request, 'medical_consultations.html')
+    hoje = datetime.now().date()
+    consultas_hoje = Consultation.objects.filter(data_aberta__user=request.user).filter(data_aberta__data__gte=hoje).filter(data_aberta__data__lt=hoje + timedelta(days=1))
+    consultas_restantes = Consultation.objects.exclude(id__in=consultas_hoje.values('id'))
+
+    return render(request, 'medical_consultations.html', {'consultas_hoje': consultas_hoje, 'consultas_restantes': consultas_restantes})
