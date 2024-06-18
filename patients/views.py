@@ -49,4 +49,5 @@ def choose_time(request, id_data_aberta):
 
 
 def my_consultations(request):
-    return render(request, 'my_consultations.html')
+    minhas_consultas = Consultation.objects.filter(paciente=request.user).filter(data_aberta__data__gte=datetime.now())
+    return render(request, 'my_consultations.html', {'minhas_consultas': minhas_consultas})

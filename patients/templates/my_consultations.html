@@ -48,11 +48,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href="#">Dr(a). Nome</a></td>
-          <td>Status</td>
-          <td>Data</td>
-        </tr>
+        {% for consulta in minhas_consultas %}
+            <tr>
+            <td><a href="#">Dr(a). {{consulta.data_aberta.user}}</a></td>
+            <td>{{consulta.get_status_display}}</td>
+            <td>{{consulta.data_aberta.data}}</td>
+            </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
