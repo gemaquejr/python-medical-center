@@ -46,3 +46,7 @@ def choose_time(request, id_data_aberta):
         messages.add_message(request, constants.SUCCESS, 'Consulta agendada com sucesso')
 
         return redirect('/patients/my_consultations')
+
+
+def my_consultations(request):
+    return render(request, 'my_consultations.html')
